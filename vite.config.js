@@ -2,8 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
- export default defineConfig({
-     plugins: [react()],
-     base: '/esl-teacher-hub/', // .github.io/quizzit-v2-test/
-   })
-.github.io/quizzit-v2-test/
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  base: "/ESL-HUB/",
+  server: {
+    host: "0.0.0.0",
+    port: 3000,
+    strictPort: true,
+    hmr: {
+      port: 3000,
+    },
+  },
+});
