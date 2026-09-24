@@ -13,7 +13,6 @@ import Assessments from './components/Assessments';
 import Resources from './components/Resources';
 import Calendar from './components/Calendar';
 import { Bell, Search, Menu, LogOut } from 'lucide-react';
-import { supabase } from './lib/supabase';
 
 interface User {
   name: string;
@@ -22,29 +21,6 @@ interface User {
 }
 
 function App() {
-    const [supabaseStatus, setSupabaseStatus] = useState('Testing...');
-
-  React.useEffect(() => {
-    const testSupabase = async () => {
-      try {
-        const { error } = await supabase.auth.getSession();
-
-        if (error) {
-          setSupabaseStatus(`❌ Supabase error: ${error.message}`);
-        } else {
-          setSupabaseStatus('✅ Supabase connection successful');
-        }
-      } catch (error) {
-        setSupabaseStatus(
-          `❌ Connection failed: ${
-            error instanceof Error ? error.message : 'Unknown error'
-          }`
-        );
-      }
-    };
-
-    testSupabase();
-  }, []);
   const [user, setUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -188,12 +164,8 @@ function App() {
 
         {/* Page Content */}
         <main className="p-4 md:p-6 lg:p-8">
-  <div className="mb-4 p-3 bg-white border border-gray-200 rounded-lg text-sm">
-    <strong>Supabase test:</strong> {supabaseStatus}
-  </div>
-
-  {renderContent()}
-</main>
+          {renderContent()}
+        </main>
       </div>
     </div>
   );
